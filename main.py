@@ -5,7 +5,7 @@ from datetime import datetime
 from tqdm import tqdm
 
 """ Importing Functions from other Files"""
-from utils.utils import setup_user_logger,setup_debug_logger
+from utils.utils import setup_logger
 from stats.stats_input_handler import get_stat_choice,get_input_for_selected_stat
 from stats.stats_parser import fetch_all_html_files
 from stats.stats_analyser import analyse_global_df
@@ -36,46 +36,44 @@ def main():
     RUN_OUTPUT_DIR = create_folder_to_save_output(BASE_DIR)
 
     # Settup  user logger and debug logger file run.log 
-    #LOG_FILE = RUN_OUTPUT_DIR / "run.log"
-    user_logger=setup_user_logger(RUN_OUTPUT_DIR)
-    debug_logger=setup_debug_logger(RUN_OUTPUT_DIR)
+    logger=setup_logger(RUN_OUTPUT_DIR)
+    
     
     """
     Lets Input from the User on which Stats option they want to use. "NFS stats" or "SMB Stats" or "View "Stats"
     We also which Name/id{addiontal}. Example view id or client ip to search in nfs stats..etc
     We will be doing Analysis and Plotting Graph for this below values only.
     """
-    selected_stat=get_stat_choice(debug_logger)
-    debug_logger.info(f"User wants stats analyser for the table : {selected_stat}")
-    stat_identifier = get_input_for_selected_stat(selected_stat, debug_logger)
-    debug_logger.info(f"User wants stats analyser for {selected_stat} for the Name/Id : {stat_identifier}")
+    selected_stat=get_stat_choice(logger)
+    logger.debug(f"User has opted stats analyser for the table : {selected_stat}")
+    stat_identifier = get_input_for_selected_stat(selected_stat, logger)
+    logger.debug(f"User has opted analyser for {selected_stat} for the Name/Id : {stat_identifier}")
     
-    user_logger.info("Perf stats processing started")
+    logger.info("Perf Analyser Processing Started")
     html_files = []
     for html_file in PERF_PATH.rglob("perf-stats-*/*bridge.default.html"):
         html_files.append(html_file)
-    debug_logger.info(f"Total Bridge Default HTML files discovered: {len(html_files)}")
+    logger.info(f"Total Bridge Default HTML files discovered: {len(html_files)}")
 
     """ 
     Start parsing each html file to create global data frame which contains 
     all the rows for the stats  which has been eneted by user
     """
     for html_file_path in tqdm(html_files, desc="Processing Perf Stats", unit="file"):
-        debug_logger.info(f"Start Parsing the file: {html_file_path}")
+        logger.debug(f"Start Parsing the file: {html_file_path}")
 
-        df=fetch_all_html_files(html_file_path,selected_stat, debug_logger)
+        df=fetch_all_html_files(html_file_path,selected_stat, logger)
         if global_df_stats is None:
             global_df_stats = df  
         else:
             global_df_stats = pd.concat([global_df_stats, df], ignore_index=True)
-        debug_logger.info(f"Finished Parsing file: {html_file_path}")
-    debug_logger.info("Finished Parsing all files ")   
+        logger.debug(f"Finished Parsing file: {html_file_path}")
+    logger.info("Finished Parsing all files ")   
 
     """
     Perform stat analyser and Start graph plotting
     """
-    analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, debug_logger )
-    debug_logger.info("test")
+    analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger )
 
 if __name__ == "__main__":
     main()

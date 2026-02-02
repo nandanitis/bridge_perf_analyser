@@ -24,7 +24,7 @@ def plot_map_and_save_png(df, col,output_dir_images,logger):
     )
 
     display_name = PERF_METRIC_MAP.get(col, col)
-    logger.info("Plotting Graph for metric {display_name}")
+    logger.debug("Plotting Graph for metric {display_name}")
    
     # Rows = Time stamp of the file, columns = bridge_node_ip, values = metric column
     pivot_df = df.pivot(index="perf_start_time",columns="bridge_node_ip", values=col)
@@ -60,7 +60,7 @@ def plot_map_and_save_png(df, col,output_dir_images,logger):
     plt.savefig(output_file, dpi=150, bbox_inches="tight")
     plt.close()
 
-    logger.info(f"Saved plot image: {output_file}")
+    logger.debug(f"Saved plot image: {output_file}")
 
 
 def df_for_plotting_graphs(df,selected_stat, RUN_OUTPUT_DIR, logger):
@@ -70,7 +70,6 @@ def df_for_plotting_graphs(df,selected_stat, RUN_OUTPUT_DIR, logger):
     safe_stat_name = selected_stat.replace(" ", "_")
     output_dir_images = Path(RUN_OUTPUT_DIR) / safe_stat_name
     output_dir_images.mkdir(parents=True, exist_ok=True)
-    logger.info(f"Graph Output will be saved to {output_dir_images} ")
 
   
     """Data Columns Start only from column 6, lets satrt from column W_IOPS"""
@@ -78,7 +77,6 @@ def df_for_plotting_graphs(df,selected_stat, RUN_OUTPUT_DIR, logger):
     start_idx = df.columns.get_loc(metric_start_col_name)
     metric_columns = df.columns[start_idx:]
 
-    logger.info("Started Plotting Graphs ")
     """Save Each Metrics Output as a seprate Image"""
     for col in metric_columns:
         if col in PERF_METRIC_MAP:

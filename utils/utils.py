@@ -1,5 +1,6 @@
 import logging
 import re
+import argparse
 
 def make_safe_filename(text: str) -> str:
     """
@@ -52,3 +53,54 @@ def setup_logger(log_dir):
     logger.addHandler(debug_file_handler)
 
     return logger
+
+
+STAT_MAP_FOR_ARGPARSE = {
+    "nfs": "NFS Portal Stats Averaged over 60 secs",
+    "smb": "SMB Portal Stats Averaged over 60 secs",
+    "s3": "S3 Portal Stats Averaged over 60 secs",
+    "view": "View Stats Averaged over 60 secs",
+    "journal":"Journal stats Averaged over 60 secs",
+    "metadata":"Metadata Journal stats Averaged over 60 secs",
+    "disk-controller":"Disk Controller Stats Averaged over 60 secs",
+    "disk":"Disk Stats Averaged over 60 secs",
+    "icebox":"Icebox Vault Node Stats Averaged over 60 secs",
+}
+
+STAT_OPTIONS = {
+    1: "NFS Portal Stats",
+    2: "SMB Portal Stats",
+    3: "S3 Portal Stats",
+    4: "View Stats",
+    5: "Journal Stats",
+    6: "Metadata Journal Stats",
+    7: "Disk Controller Stats",
+    8: "Disk Stats",
+    9: "Icebox Vault Node Stats",
+}
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(
+        description="Bridge Perf Analyser"
+    )
+
+    parser.add_argument(
+        "--stat",
+        type=str,
+        help="Stat type (nfs, smb, s3, view, disk, etc)"
+    )
+
+    parser.add_argument(
+        "--id",
+        type=str,
+        help="Stat identifier (View ID, client IP, bucket name, etc)"
+    )
+
+    parser.add_argument(
+        "--non-interactive",
+        action="store_true",
+        help="Run without interactive prompts"
+    )
+
+    return parser.parse_args()

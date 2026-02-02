@@ -1,0 +1,11 @@
+2026-02-01 22:57:29,973 | INFO | User wants stats analyser for the table : View Stats Averaged over 60 secs
+2026-02-01 22:57:29,973 | INFO | User wants stats analyser for View Stats Averaged over 60 secs for the Name/Id : 10907017373:TestAndDev:6
+2026-02-01 22:57:29,973 | INFO | Perf stats processing started
+2026-02-01 22:57:29,976 | INFO | Total Bridge Default HTML files discovered: 40
+2026-02-01 22:57:29,992 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.87.bridge.default.html
+2026-02-01 22:57:30,464 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.87.bridge.default.html
+2026-02-01 22:57:30,464 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.86.bridge.default.html
+2026-02-01 22:57:30,900 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.86.bridge.default.html
+2026-02-01 22:57:30,901 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.89.bridge.default.html
+2026-02-01 22:57:31,359 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.89.bridge.default.html
+2026-02-01 22:57:31,359 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.88.bridge.default.html

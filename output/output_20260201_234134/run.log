@@ -1,0 +1,136 @@
+2026-02-01 23:41:34,430 | INFO | User wants stats analyser for the table : View Stats Averaged over 60 secs
+2026-02-01 23:41:34,430 | INFO | User wants stats analyser for View Stats Averaged over 60 secs for the Name/Id : 10907017373:TestAndDev:6
+2026-02-01 23:41:34,430 | INFO | Perf stats processing started
+2026-02-01 23:41:34,434 | INFO | Total Bridge Default HTML files discovered: 40
+2026-02-01 23:41:34,451 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:34,947 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:34,948 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:35,410 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:35,410 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:35,934 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:35,934 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:36,455 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-103001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:36,455 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:36,958 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:36,959 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:37,463 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:37,463 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:37,889 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:37,889 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:38,400 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-111501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:38,401 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:38,894 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:38,894 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:39,376 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:39,376 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:39,809 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:39,809 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:40,409 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-101501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:40,409 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:40,841 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:40,841 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:41,376 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:41,377 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:41,752 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:41,753 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:42,300 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-113001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:42,300 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:42,738 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:42,738 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:43,300 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:43,300 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:43,746 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:43,746 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:44,301 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-091501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:44,301 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:44,716 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:44,716 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:45,229 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:45,229 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:45,659 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:45,659 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:46,158 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-093001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:46,159 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:46,604 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:46,604 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:47,025 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:47,025 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:47,417 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:47,417 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:47,861 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-100001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:47,861 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:48,326 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.87.bridge.default.html
+2026-02-01 23:41:48,326 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:48,805 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.86.bridge.default.html
+2026-02-01 23:41:48,805 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:49,271 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.89.bridge.default.html
+2026-02-01 23:41:49,271 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:49,778 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-110001/10.222.61.88.bridge.default.html
+2026-02-01 23:41:49,779 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:50,202 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.87.bridge.default.html
+2026-02-01 23:41:50,202 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:50,700 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.86.bridge.default.html
+2026-02-01 23:41:50,700 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:51,179 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.89.bridge.default.html
+2026-02-01 23:41:51,179 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:51,691 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-094501/10.222.61.88.bridge.default.html
+2026-02-01 23:41:51,691 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.87.bridge.default.html
+2026-02-01 23:41:52,143 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.87.bridge.default.html
+2026-02-01 23:41:52,143 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.86.bridge.default.html
+2026-02-01 23:41:52,644 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.86.bridge.default.html
+2026-02-01 23:41:52,644 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.89.bridge.default.html
+2026-02-01 23:41:53,033 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.89.bridge.default.html
+2026-02-01 23:41:53,034 | INFO | Start Parsing the file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.88.bridge.default.html
+2026-02-01 23:41:53,831 | INFO | Finished Parsing file: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge-default-html-files/perf-stats-20260130-104502/10.222.61.88.bridge.default.html
+2026-02-01 23:41:53,831 | INFO | Finished Parsing all files 
+2026-02-01 23:41:53,831 | INFO | Rows: 11818, Columns: 24
+2026-02-01 23:41:53,831 | INFO | Column Names Index(['time_created', 'perf_folder_name', 'bridge_node_ip', 'Name/Id',
+       'Total/IOs', 'W_IOPS', 'W_BW', 'W_Lat', 'W_Avg OIO', 'W_Avg Size',
+       'W_Rand %', 'W_Err', 'R_IOPS', 'R_BW', 'R_Lat', 'R_Avg OIO',
+       'R_Avg Size', 'R_Rand %', 'R_Err', 'R_Zero %', 'R_Cache %', 'R_Hydra %',
+       'R_SSD %', 'R_FAA %'],
+      dtype='str')
+2026-02-01 23:41:53,833 | INFO | Sorting Datframe by perf_folder_name
+2026-02-01 23:41:53,839 | INFO | No inactive bridge nodes to drop.
+2026-02-01 23:41:53,839 | INFO | No inactive bridge nodes to drop.
+2026-02-01 23:41:53,840 | INFO | Graph Output will be saved to /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs 
+2026-02-01 23:41:53,840 | INFO | Started Plotting Graphs 
+2026-02-01 23:41:53,841 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,092 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_IOPS_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,093 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,205 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Bandwidth_MiB_s_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,205 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,314 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Latency_µs_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,315 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,418 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Avg_OIO_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,418 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,527 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Avg_Size_KiB_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,528 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,631 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Random_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,631 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,733 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Write_Errors_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,733 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,840 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_IOPS_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,840 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:54,945 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Bandwidth_MiB_s_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:54,946 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,049 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Latency_µs_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,049 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,140 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Avg_OIO_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,141 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,241 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Avg_Size_KiB_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,242 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,342 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Random_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,343 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,439 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Errors_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,440 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,532 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Zero_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,532 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,626 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Cache_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,627 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,723 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_Hydra_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,724 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,823 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_SSD_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,823 | INFO | Plotting Graph for metric {display_name}
+2026-02-01 23:41:55,921 | INFO | Saved plot image: /Users/nandan.hegde@cohesity.com/Downloads/perf_ssc/bridge_perf_analyser/output/output_20260201_234134/View_Stats_Averaged_over_60_secs/Read_FAA_across_Perf_Traces_Across_Bridge_Node.png
+2026-02-01 23:41:55,921 | INFO | Finished Plotting Graphs and its saved to folder {safe_stat_name}

@@ -15,10 +15,11 @@ Tool to parse, analyze, and plot Cohesity Bridge perf stats.
 - [x] Fix plotting in X-axis
 - [x] Create logic Drop bridge nodes where the value is 0 for all metrics across all perf_traces
 - [x] Change logging logic to user loging and debug logging . 
-- [ ] Create tabular analysis output to text file
-- [ ] Add argparse-based CLI
+- [x] Create tabular analysis output to text file
+- [x] Add argparse-based CLI -> First half Completed
 - [ ] Improve Name/Id matching with user selection
-- [ ] Add External IO Stats Parser
-- [ ] Add External IO stats Analyser
+- [ ] Fix Normalize_perf_metric_columns and make sure edge case are handled properly
+- [ ] Add "External IO" Stats Parser
+- [ ] Add "External IO" stats Analyser
 - [ ] Check if there is a need of External IO plotting and plot the graphs
-
+- [x] Argparse helper option to show command options

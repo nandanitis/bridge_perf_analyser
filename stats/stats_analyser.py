@@ -124,10 +124,10 @@ def drop_inactive_bridge_nodes(df, inactive_node_ips, logger):
         pd.DataFrame: filtered dataframe
     """
     if not inactive_node_ips:
-        logger.info("No inactive bridge nodes to drop.")
+        logger.debug("No inactive bridge nodes to drop.")
         return df
 
-    logger.info(
+    logger.debug(
         "Dropping inactive bridge_node_ip(s): %s",
         inactive_node_ips
     )
@@ -138,20 +138,19 @@ def drop_inactive_bridge_nodes(df, inactive_node_ips, logger):
 # Main Function of this Page
 def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
     num_rows, num_cols = global_df_stats.shape
-    logger.info(f"Rows: {num_rows}, Columns: {num_cols}")
-    logger.info(f"Column Names {global_df_stats.columns}")
+    logger.debug(f"Rows: {num_rows}, Columns: {num_cols}")
+    logger.debug(f"Column Names {global_df_stats.columns}")
     
     """ Filter rows where Name/Id column matches the input given by user. 
     Example only for view id : '10907017373:TestAndDev:6' """
     analysis_entity_df = global_df_stats[global_df_stats["Name/Id"] == stat_identifier]
 
-    logger.info(f"Sorting Datframe by perf_folder_name")
+    logger.debug(f"Sorting Datframe by perf_folder_name")
     analysis_entity_df = analysis_entity_df.sort_values(by="perf_folder_name")
     
     """output_dir = Path(__file__).resolve().parent
     output_file = output_dir / "filtered_perf_stats.csv"
     analysis_entity_df.to_csv(output_file, index=False) """
-
 
     """We need this  to convert all string values to float so that we can plot the graphs later
     For example Kibps,Mibps,Bps to Kibps etc..."""
@@ -166,9 +165,10 @@ def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPU
     analysis_df=drop_inactive_bridge_nodes(analysis_entity_df,inactive_node_ips, logger)
     plotting_df=drop_inactive_bridge_nodes(analysis_entity_df,inactive_node_ips, logger)
 
+    logger.info(f"{selected_stat} Sorted by time across all perf traces")
     """Display The columns and Rows in the UI in a neat Tabular Way """
 
-
+    logger.info("Started plotting the Grap")
     """Calling the plotting function to plot graphs"""
     df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
     

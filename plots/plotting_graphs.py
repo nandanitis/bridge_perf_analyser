@@ -65,6 +65,9 @@ def plot_map_and_save_png(df, col,output_dir_images,logger):
 
 def df_for_plotting_graphs(df,selected_stat, RUN_OUTPUT_DIR, logger):
 
+    logger.info("Started plotting the Graph")
+    logger.debug("Called df_for_plotting_graphs function")
+
     """We are creating output folder to save the images. 
     If the Stat name is NFS Portal Stats Averaged over 60 secs, we want the folder name to be NFS_Portal_Stats_Averaged_over_60_secs"""
     safe_stat_name = selected_stat.replace(" ", "_")

@@ -1,94 +1,20 @@
-import re
+from tabulate import tabulate
+import time
+import pandas as pd
 from plots.plotting_graphs import df_for_plotting_graphs
-
-# Needs Tetsing and error handling, currently converting everything to kib
-def size_to_kib(value):
-        """
-        Convert size strings (B, KiB, MiB, GiB) to KiB.
-        """
-        if not value or value == "nan":
-            return None
-
-        value = value.strip()
-
-        match = re.match(r"([\d\.]+)\s*(B|KiB|MiB|GiB)", value)
-        if not match:
-            return None
-
-        number, unit = match.groups()
-        number = float(number)
-
-        if unit == "B":
-            return number / 1024
-        elif unit == "KiB":
-            return number
-        elif unit == "MiB":
-            return number * 1024
-        elif unit == "GiB":
-            return number * 1024 * 1024
-
-
-# Needs Tetsing and error handling, currentlyconverting everything to to Mibps
-def speed_to_mibps(value):
-    #Converting Gibps,Bps,Gibps to Kibps
-    if value is None or value == "" or value == "nan":
-        return None
-    value = value.strip()
-
-    # If already numeric, return as float
-    if re.fullmatch(r"[\d\.]+", value):
-        return float(value)
-
-    match = re.match(r"([\d\.]+)\s*(Bps|KiBps|MiBps|GiBps)", value)
-    if not match:
-        return None
-    num, unit = match.groups()
-    num = float(num)
-
-    return {
-        "Bps":   num / (1024 * 1024),
-        "KiBps": num / 1024,
-        "MiBps": num,
-        "GiBps": num * 1024,
-    }[unit]
-
-
-# Need to add logic to convert all possible latencies to microseconds or seconds. Currently not implemented
-def latency_to_microsec(value):
-    return value
-
-
-# Needs Tetsing
-def normalize_perf_metric_columns(df):
-    #This needs work, we need to standardise throughput to mbps and filesize to bytes/KBs
-   
-    """We are converting all Write/Read performance metric columns to numeric.
-    - Targets columns starting with W_ or R_
-    - Strips units like MiBps, us, %, etc.
-    - Converts values to float """
-    for col in df.columns:
-        #Converting Mibps,Bps,Gibps to Kibps
-        if col in ("W_Avg Size", "R_Avg Size"):
-            df[col] = df[col].astype(str).apply(size_to_kib).astype(float)
-
-        #Converting Gibps,Bps,Gibps to Kibps
-        elif col in ("W_BW", "R_BW"):
-            df[col] = df[col].astype(str).apply(speed_to_mibps).astype(float)
-
-        elif col.startswith(("W_", "R_")):
-            df[col] = df[col].astype(str).str.replace(r"[^\d\.]", "", regex=True).replace("", None).astype(float)
-    return df
+from .stats_normaliser import normalize_perf_metric_values
 
 
 # Needs Testing : 
 def find_inactive_bridge_nodes(df, logger, metric_start_col_name="W_IOPS"):
-    """
-    Identify bridge_node_ip values where ALL metric values
-    (from metric_start_col_name onward) are zero.
+   
+    """Find bridge nodes where value is 0 in all metric across all perf traces across all
+    In oracle and SQl view dump we will use more parallel bridge Nodes
+    If we are doing physical backup or oracle clone with just one bridge node, lets drop the other bridge node
 
     Returns:
-        List[str]: inactive bridge_node_ip values
-    """
+        List[str]: inactive bridge_node_ip values""" 
+    
     if metric_start_col_name not in df.columns:
         logger.warning(
             "Metric start column '%s' not found. Cannot detect inactive bridge nodes.",
@@ -116,6 +42,7 @@ def find_inactive_bridge_nodes(df, logger, metric_start_col_name="W_IOPS"):
     return inactive_node_ips
 
 
+# Needs Testing : 
 def drop_inactive_bridge_nodes(df, inactive_node_ips, logger):
     """
     Drop rows corresponding to inactive bridge_node_ip values.
@@ -135,46 +62,82 @@ def drop_inactive_bridge_nodes(df, inactive_node_ips, logger):
     return df[~df["bridge_node_ip"].isin(inactive_node_ips)]
 
 
-# Main Function of this Page
+def normalise_folder_time_and_sort_df(analysis_df,logger):
+    #Adding a column perf_start_time
+    analysis_df["time_created"] = pd.to_datetime(analysis_df["time_created"]) 
+    analysis_df["time_created"] = ( analysis_df.groupby("perf_folder_name")["time_created"] .transform("min") )
+
+    # Sort by perf_folder_name
+    analysis_df = analysis_df.sort_values(by="perf_folder_name")
+    return analysis_df
+
+
+def tabular_data_of_the_stat(df,selected_stat,logger, sleep_sec=0.35):
+    logger.info(f" Sorting perf trace by time creation")
+    time.sleep(3)
+    df["time_created"] = pd.to_datetime(df["time_created"])
+
+    base_cols = ["bridge_node_ip", "Total/IOs"]
+
+    # Identify W_* and R_* columns dynamically
+    w_cols = [c for c in df.columns if c.startswith("W_")]
+    r_cols = [c for c in df.columns if c.startswith("R_")]
+
+    def print_grouped_table(title, metric_cols):
+        logger.info(f"\n{'='*20} {selected_stat} {title} {'='*20}")
+
+        cols_to_show = base_cols + metric_cols
+
+        for time_val, group in df.groupby("time_created", sort=True):
+            logger.info(f"\n{time_val}")
+            logger.info(
+                group[cols_to_show].to_string(
+                    index=False,
+                    line_width=180,
+                    max_colwidth=14
+                )
+            )
+            time.sleep(sleep_sec)
+
+    # WRITE metrics table
+    print_grouped_table("WRITE METRICS (W_*)", w_cols)
+
+    # READ metrics table
+    print_grouped_table("READ METRICS (R_*)", r_cols)
+    return
+
+
 def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
+   
     num_rows, num_cols = global_df_stats.shape
+    logger.debug("Called analyse_global_df function to Analyse the DF")
     logger.debug(f"Rows: {num_rows}, Columns: {num_cols}")
-    logger.debug(f"Column Names {global_df_stats.columns}")
+    logger.debug(f"Column Names For Reference {global_df_stats.columns}")
     
-    """ Filter rows where Name/Id column matches the input given by user. 
-    Example only for view id : '10907017373:TestAndDev:6' """
-    analysis_entity_df = global_df_stats[global_df_stats["Name/Id"] == stat_identifier]
-
-    logger.debug(f"Sorting Datframe by perf_folder_name")
-    analysis_entity_df = analysis_entity_df.sort_values(by="perf_folder_name")
+    """ Filter rows where Name/Id column matches the input given by user. Example only for viewId :'10907017373:TestAndDev:6' """
+    analysis_df = global_df_stats[global_df_stats["Name/Id"] == stat_identifier]
     
-    """output_dir = Path(__file__).resolve().parent
-    output_file = output_dir / "filtered_perf_stats.csv"
-    analysis_entity_df.to_csv(output_file, index=False) """
+    """We need standardise all string values to float so that we can plot the graphs later.For example Kibps,Mibps,Bps to Kibps etc..."""
+    plotting_df=normalize_perf_metric_values(analysis_df)
 
-    """We need this  to convert all string values to float so that we can plot the graphs later
-    For example Kibps,Mibps,Bps to Kibps etc..."""
-    plotting_df=normalize_perf_metric_columns(analysis_entity_df)
-
-    """Find bridge nodes where value is 0 in all metric across all perf traces across all
-    In oracle and SQl view dump we will use more parallel bridge Nodes
-    If we are doing physical backup or oracle clone with just one bridge node, lets drop the other bridge node"""
-    #This will need better implementation or better logic
+    #This will need better implementation or better logic later on
     inactive_node_ips=find_inactive_bridge_nodes(plotting_df, logger,  metric_start_col_name="W_IOPS")
+    analysis_df=drop_inactive_bridge_nodes(analysis_df,inactive_node_ips, logger)
+    plotting_df=drop_inactive_bridge_nodes(analysis_df,inactive_node_ips, logger)
 
-    analysis_df=drop_inactive_bridge_nodes(analysis_entity_df,inactive_node_ips, logger)
-    plotting_df=drop_inactive_bridge_nodes(analysis_entity_df,inactive_node_ips, logger)
 
-    logger.info(f"{selected_stat} Sorted by time across all perf traces")
-    """Display The columns and Rows in the UI in a neat Tabular Way """
+    """Display The columns and Rows in the UI in a neat  Way """
+    analysis_df=normalise_folder_time_and_sort_df(analysis_df,logger)
+    tabular_data_of_the_stat(analysis_df,selected_stat,logger)
+    
 
-    logger.info("Started plotting the Grap")
     """Calling the plotting function to plot graphs"""
     df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
+    return
     
 
 """
-Column Names: 
+Column Names For Refernce: 
 Index(['time_created', 'perf_folder_name', 'bridge_node_ip', 'Name/Id',
        'Total/IOs', 'W_IOPS', 'W_BW', 'W_Lat', 'W_Avg OIO', 'W_Avg Size',
        'W_Rand %', 'W_Err', 'R_IOPS', 'R_BW', 'R_Lat', 'R_Avg OIO',

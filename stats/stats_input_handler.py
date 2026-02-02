@@ -33,6 +33,7 @@ def get_stat_choice_manual(logger):
 
 
 def get_stat_choice(logger):
+    return "View Stats Averaged over 60 secs"
     """
     First try argparse input.
     If not provided, fall back to manual selection.
@@ -56,15 +57,19 @@ def get_stat_choice(logger):
 def NFS_Portal_Stats_Averaged_over_60_secs(stat_identifier,logger):
     return
 
+
 def SMB_Portal_Stats_Averaged_over_60_secs(stat_identifier,logger):
     return
+
 
 def s3_Portal_Stats_Averaged_over_60_secs(stat_identifier,logger):
     return
 
+
 def view_Portal_Stats_Averaged_over_60_secs(stat_identifier,logger):
     print(stat_identifier)
     return "10907017373:TestAndDev:6"
+
 
 def get_input_for_selected_stat(option, logger):
     """

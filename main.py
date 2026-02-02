@@ -70,6 +70,7 @@ def main():
         logger.debug(f"Finished Parsing file: {html_file_path}")
     logger.info("Finished Parsing all files ")   
 
+
     """
     Perform stat analyser and Start graph plotting
     """

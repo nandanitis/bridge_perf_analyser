@@ -2,7 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
-from utils import make_safe_filename
+from utils.utils import make_safe_filename
 
 
 PERF_METRIC_MAP = { "W_IOPS": "Write IOPS", "W_BW": "Write Bandwidth (MiB/s)", "W_Lat": "Write Latency (µs)", "W_Avg OIO": "Write Avg OIO", "W_Avg Size": "Write Avg Size (KiB)", "W_Rand %": "Write Random (%)", "W_Err": "Write Errors", "R_IOPS": "Read IOPS", "R_BW": "Read Bandwidth (MiB/s)", "R_Lat": "Read Latency (µs)", "R_Avg OIO": "Read Avg OIO", "R_Avg Size": "Read Avg Size (KiB)", "R_Rand %": "Read Random (%)", "R_Err": "Read Errors", "R_Zero %": "Read Zero (%)", "R_Cache %": "Read Cache (%)", "R_Hydra %": "Read Hydra (%)", "R_SSD %": "Read SSD (%)", "R_FAA %": "Read FAA (%)", }

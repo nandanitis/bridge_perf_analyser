@@ -5,10 +5,10 @@ from datetime import datetime
 from tqdm import tqdm
 
 """ Importing Functions from other Files"""
-from utils import setup_user_logger,setup_debug_logger
-from stats_input_handler import get_stat_choice,get_input_for_selected_stat
-from stats_parser import fetch_all_html_files
-from stats_analyser import analyse_global_df
+from utils.utils import setup_user_logger,setup_debug_logger
+from stats.stats_input_handler import get_stat_choice,get_input_for_selected_stat
+from stats.stats_parser import fetch_all_html_files
+from stats.stats_analyser import analyse_global_df
 
 # ---- Configs --- Constants ---- #
 BASE_DIR = Path(__file__).resolve().parent
@@ -75,7 +75,7 @@ def main():
     Perform stat analyser and Start graph plotting
     """
     analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, debug_logger )
-        
+    debug_logger.info("test")
 
 if __name__ == "__main__":
     main()

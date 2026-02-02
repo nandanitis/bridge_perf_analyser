@@ -1,5 +1,5 @@
 import re
-from plotting_graphs import df_for_plotting_graphs
+from plots.plotting_graphs import df_for_plotting_graphs
 
 # Needs Tetsing and error handling, currently converting everything to kib
 def size_to_kib(value):

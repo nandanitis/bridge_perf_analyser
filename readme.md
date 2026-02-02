@@ -10,7 +10,7 @@ Tool to parse, analyze, and plot Cohesity Bridge perf stats.
 - Time-based plotting
 
 ## TODO / Roadmap
-- [n]  Package using pyproject.toml // having vs code bug, skipping it for now
+- [ ]  Package using pyproject.toml // having vs code bug, skipping it for now
 - [ ] Push to GitHub
 - [x] Fix plotting X-axis
 - [x] Dual logging (user_output.log, display.log)

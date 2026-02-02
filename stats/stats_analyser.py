@@ -118,12 +118,13 @@ def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPU
     analysis_df = global_df_stats[global_df_stats["Name/Id"] == stat_identifier]
     
     """We need standardise all string values to float so that we can plot the graphs later.For example Kibps,Mibps,Bps to Kibps etc..."""
-    plotting_df=normalize_perf_metric_values(analysis_df)
+    plotting_df=analysis_df.copy()
+    plotting_df=normalize_perf_metric_values(plotting_df)
 
     #This will need better implementation or better logic later on
     inactive_node_ips=find_inactive_bridge_nodes(plotting_df, logger,  metric_start_col_name="W_IOPS")
     analysis_df=drop_inactive_bridge_nodes(analysis_df,inactive_node_ips, logger)
-    plotting_df=drop_inactive_bridge_nodes(analysis_df,inactive_node_ips, logger)
+    plotting_df=drop_inactive_bridge_nodes(plotting_df,inactive_node_ips, logger)
 
 
     """Display The columns and Rows in the UI in a neat  Way """

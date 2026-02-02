@@ -59,8 +59,8 @@ def latency_to_microsec(value):
 
 
 # Needs Tetsing
-def normalize_perf_metric_values(analysis_df):
-    df=analysis_df.copy()
+def normalize_perf_metric_values(df):
+    
     
     #This needs work, we need to standardise throughput to mbps and filesize to bytes/KBs
    

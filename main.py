@@ -5,7 +5,7 @@ from datetime import datetime
 from tqdm import tqdm
 
 """ Importing Functions from other Files"""
-from utils.utils import setup_logger
+from utils.utils import setup_logger,zip_run_output
 from stats.stats_input_handler import get_stat_choice,get_input_for_selected_stat
 from stats.stats_parser import fetch_all_html_files
 from stats.stats_analyser import analyse_global_df
@@ -25,7 +25,7 @@ def create_folder_to_save_output(BASE_DIR):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     RUN_OUTPUT_DIR = OUTPUT_DIR / f"output_{timestamp}"
     RUN_OUTPUT_DIR.mkdir(exist_ok=True)
-    print(f"Saving outputs to: {RUN_OUTPUT_DIR}")
+    #logger.info(f"Saving outputs to: {RUN_OUTPUT_DIR}")
     return RUN_OUTPUT_DIR
 
 
@@ -37,8 +37,6 @@ def main():
 
     # Settup  user logger and debug logger file run.log 
     logger=setup_logger(RUN_OUTPUT_DIR)
-    
-    
     """
     Lets Input from the User on which Stats option they want to use. "NFS stats" or "SMB Stats" or "View "Stats"
     We also which Name/id{addiontal}. Example view id or client ip to search in nfs stats..etc
@@ -48,7 +46,9 @@ def main():
     logger.debug(f"User has opted stats analyser for the table : {selected_stat}")
     stat_identifier = get_input_for_selected_stat(selected_stat, logger)
     logger.debug(f"User has opted analyser for {selected_stat} for the Name/Id : {stat_identifier}")
+
     
+    logger.info(f"Saving outputs to: {RUN_OUTPUT_DIR}")
     logger.info("Perf Analyser Processing Started")
     html_files = []
     for html_file in PERF_PATH.rglob("perf-stats-*/*bridge.default.html"):
@@ -75,6 +75,11 @@ def main():
     Perform stat analyser and Start graph plotting
     """
     analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger )
+
+    """ziping the folder so that user can scp it to their machine"""
+    zip_file = zip_run_output(RUN_OUTPUT_DIR)
+    logger.info(f"\nOutput archived at: {zip_file}")
+    logger.info(f"scp user@host:{zip_file} .")
 
 if __name__ == "__main__":
     main()

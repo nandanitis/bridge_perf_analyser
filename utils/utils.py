@@ -1,6 +1,8 @@
 import logging
 import re
 import argparse
+import shutil
+from pathlib import Path
 
 def make_safe_filename(text: str) -> str:
     """
@@ -104,3 +106,20 @@ def parse_args():
     )
 
     return parser.parse_args()
+
+
+def zip_run_output(run_output_dir: str) -> str:
+    """
+    Zips the RUN_OUTPUT_DIR and returns the zip file path
+    """
+    run_dir = Path(run_output_dir).resolve()
+    zip_path = run_dir.parent / run_dir.name  # without .zip
+
+    shutil.make_archive(
+        base_name=str(zip_path),
+        format="zip",
+        root_dir=run_dir.parent,
+        base_dir=run_dir.name
+    )
+
+    return f"{zip_path}.zip"

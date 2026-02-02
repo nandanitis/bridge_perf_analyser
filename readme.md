@@ -12,9 +12,13 @@ Tool to parse, analyze, and plot Cohesity Bridge perf stats.
 ## TODO / Roadmap
 - [ ]  Package using pyproject.toml // having vs code bug, skipping it for now
 - [x] Handle all changes from GitHub moving forward
-- [x] Fix plotting X-axis
-- [x] Dual logging (user_output.log, display.log)
-- [ ] Change logging where is needed to user. 
-- [ ] Save analysis output to text file
+- [x] Fix plotting in X-axis
+- [x] Create logic Drop bridge nodes where the value is 0 for all metrics across all perf_traces
+- [x] Change logging logic to user loging and debug logging . 
+- [ ] Create tabular analysis output to text file
 - [ ] Add argparse-based CLI
 - [ ] Improve Name/Id matching with user selection
+- [ ] Add External IO Stats Parser
+- [ ] Add External IO stats Analyser
+- [ ] Check if there is a need of External IO plotting and plot the graphs
+

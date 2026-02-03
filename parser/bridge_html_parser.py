@@ -1,11 +1,10 @@
-
 import pandas as pd
 from io import StringIO 
 from datetime import datetime
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
-# Need to add logging and conditions where the column is not found
-
+# Need to add logging and conditions if the column is not found
 def flatten_and_shorten_columns(df):
     """
     The column of table is multi header, one level column is write and read and the second level is all the metrics. 
@@ -40,7 +39,7 @@ def flatten_and_shorten_columns(df):
     return df
 
 
-def add_columns_to_table(df, html_file_path):
+def add_metadata_to_table(df, html_file_path):
     """
     Enrich the stats DataFrame with source metadata.These additional columns provide context that is useful for:
     - Time-series analysis
@@ -117,25 +116,81 @@ def find_stat_table_in_html_file(soup, selected_stat, table_offset_index):
 
 
 def fetch_all_html_files(html_file_path,selected_stat,logger):
-    #print(f"Please hold on... Handling Perf stat {html_file_path}")
+    #print(f"Please hold on...... Handling Perf stat {html_file_path}")
     soup=None
     with open(html_file_path, "r", encoding="utf-8", errors="ignore") as f:
         soup = BeautifulSoup(f, "html.parser")
 
-    stat_table=find_stat_table_in_html_file(soup,selected_stat,2)
-    if stat_table is None:
-        print(f" Table not found in {html_file_path}, skipping...")
-        return None
-    table_html = str(stat_table)
+    """Below code is to get the dataframe for admission_control_queue_stats
+    Admission_control_queue_stats=acq_stats"""
+    acq_stat_name="Admission Controller Queue Stats"
+    acq_stat_table=find_stat_table_in_html_file(soup,acq_stat_name,1)
+    if acq_stat_table is None:
+        logger.info(f"{acq_stat_name} table not found in {html_file_path}, skipping...")
+        logger.error("Error while fetching the html files, exiting....")
+        exit()
+    acq_stat_table_html = str(acq_stat_table)
 
     # Wrap in a StringIO so pandas reads it as HTML content
-    df = pd.read_html(StringIO(table_html))[0]
+    acq_df = pd.read_html(StringIO(acq_stat_table_html))[0]
+    acq_df = add_metadata_to_table(acq_df,html_file_path)
 
+
+
+    """Below Code is the get the dataframe for the stat analyser  which user want to check for """
+    user_stat_table=find_stat_table_in_html_file(soup,selected_stat,2)
+    if user_stat_table is None:
+        logger.info(f"{selected_stat} table not found in {html_file_path}, skipping...")
+        exit()
+    stat_table_html = str(user_stat_table)
+    # Wrap in a StringIO so pandas reads it as HTML content
+    df = pd.read_html(StringIO(stat_table_html))[0]
     #Flatten the multi level column to single level column 
     df = flatten_and_shorten_columns(df)
-
     # Add 3 columns to the current table 
-    df = add_columns_to_table(df,html_file_path)
-    return df
+    df = add_metadata_to_table(df,html_file_path)
+    return df,acq_df
 
 
+def build_final_dataframes(html_files,selected_stat, is_bridge_only,logger):
+    """ Temporary collectors"""
+    acq_dfs = []
+    selected_dfs = []
+
+    """Start Parser"""
+    for html_file_path in tqdm(html_files, desc="Processing Perf Stats", unit="file"):
+        logger.debug(f"Start Parsing file: {html_file_path}")
+
+        selected_df, acq_df = fetch_all_html_files(
+            html_file_path,
+            selected_stat,
+            logger
+        )
+
+        # Admission control stats (always collected)
+        if acq_df is not None and not acq_df.empty:
+            acq_dfs.append(acq_df)
+
+        # User-selected stats (only if not bridge-only)
+        if not is_bridge_only:
+            if selected_df is not None and not selected_df.empty:
+                selected_dfs.append(selected_df)
+
+        logger.debug(f"Finished Parsing file: {html_file_path}")
+
+    logger.info("Finished Parsing all files")
+
+    # Final DataFrames
+    global_acq_df = (
+        pd.concat(acq_dfs, ignore_index=True)
+        if acq_dfs else pd.DataFrame()
+    )
+
+    if not is_bridge_only:
+        global_selected_df = (
+            pd.concat(selected_dfs, ignore_index=True)
+            if selected_dfs else pd.DataFrame()
+        )
+    else:
+        global_selected_df = None
+    return global_acq_df,global_selected_df

@@ -1,5 +1,7 @@
 import re
 import pandas as pd
+from collections import Counter
+
 
 # Needs Tetsing and error handling, currently converting everything to kib
 def size_to_kib(value):
@@ -28,6 +30,35 @@ def size_to_kib(value):
             return number * 1024 * 1024
 
 
+""" 
+def speed_to_decide(series):
+    
+    Decide dominant bandwidth unit in a column.
+    Returns conversion function.
+    
+    unit_pattern = re.compile(r"\b(Bps|KiBps|MiBps|GiBps)\b")
+
+    counts = Counter()
+
+    for val in series.dropna().astype(str):
+        match = unit_pattern.search(val)
+        if match:
+            counts[match.group(1)] += 1
+
+    if not counts:
+        return convert_to_mibps  # safe default
+
+    dominant_unit = counts.most_common(1)[0][0]
+
+    return {
+        "Bps": convert_to_mibps,
+        "KiBps": convert_to_mibps,
+        "MiBps": convert_to_mibps,
+        "GiBps": convert_to_mibps,
+    }[dominant_unit]
+"""
+
+
 # Needs Tetsing and error handling, currentlyconverting everything to to Mibps
 def speed_to_mibps(value):
     #Converting Gibps,Bps,Gibps to Kibps
@@ -53,9 +84,36 @@ def speed_to_mibps(value):
     }[unit]
 
 
-# Need to add logic to convert all possible latencies to microseconds or seconds. Currently not implemented
-def latency_to_microsec(value):
-    return value
+# Needs testing
+def latency_to_ms(value):
+    if value in (None, "", "nan"):
+        return None
+
+    value = str(value).strip()
+
+    # If already numeric → assume ms
+    if re.fullmatch(r"[\d\.]+", value):
+        return float(value)
+
+    # Find all number + unit pairs
+    matches = re.findall(r"([\d\.]+)\s*(us|ms|s)", value, re.IGNORECASE)
+    if not matches:
+        return None
+
+    total_ms = 0.0
+
+    for num, unit in matches:
+        num = float(num)
+        unit = unit.lower()
+
+        if unit == "us":
+            total_ms += num / 1000
+        elif unit == "ms":
+            total_ms += num
+        elif unit == "s":
+            total_ms += num * 1000
+
+    return total_ms
 
 
 # Needs Tetsing
@@ -69,15 +127,26 @@ def normalize_perf_metric_values(analysis_df):
     - Strips units like MiBps, us, %, etc.
     - Converts values to float """
     for col in df.columns:
-        #Converting Mibps,Bps,Gibps to Kibps
+        # Avg I/O size → KiB
         if col in ("W_Avg Size", "R_Avg Size"):
             df[col] = df[col].astype(str).apply(size_to_kib).astype(float)
 
-        #Converting Gibps,Bps,Gibps to Kibps
+        # Bandwidth → MiB/s
         elif col in ("W_BW", "R_BW"):
             df[col] = df[col].astype(str).apply(speed_to_mibps).astype(float)
 
+        # Latency → ms
+        elif col in ("W_Lat", "R_Lat"):
+            df[col] = df[col].astype(str).apply(latency_to_ms).astype(float)
+
+        # Generic numeric cleanup for other W_/R_ columns
         elif col.startswith(("W_", "R_")):
-            df[col] = df[col].astype(str).str.replace(r"[^\d\.]", "", regex=True).replace("", None).astype(float)
+            df[col] = (
+                df[col]
+                .astype(str)
+                .str.replace(r"[^\d\.]", "", regex=True)
+                .replace("", None)
+                .astype(float)
+            )
     return df
 

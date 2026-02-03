@@ -1,6 +1,11 @@
 import logging
 import re
 import argparse
+import shutil
+from pathlib import Path
+import time
+from datetime import datetime
+
 
 def make_safe_filename(text: str) -> str:
     """
@@ -104,3 +109,40 @@ def parse_args():
     )
 
     return parser.parse_args()
+
+
+def create_folder_to_save_output(BASE_DIR):
+
+    # Create top-level output directory
+    OUTPUT_DIR = BASE_DIR / "output"
+    OUTPUT_DIR.mkdir(exist_ok=True)
+
+    # Create timestamped subfolder inside output where we will save the current Outputs
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    RUN_OUTPUT_DIR = OUTPUT_DIR / f"output_{timestamp}"
+    RUN_OUTPUT_DIR.mkdir(exist_ok=True)
+    #logger.info(f"Saving outputs to: {RUN_OUTPUT_DIR}")
+    return RUN_OUTPUT_DIR
+
+
+
+def zip_run_output(run_output_dir: str) -> str:
+    """
+    Zips the RUN_OUTPUT_DIR and returns the zip file path
+    """
+    run_dir = Path(run_output_dir).resolve()
+    zip_path = run_dir.parent / run_dir.name  # without .zip
+
+    shutil.make_archive(
+        base_name=str(zip_path),
+        format="zip",
+        root_dir=run_dir.parent,
+        base_dir=run_dir.name
+    )
+
+    return f"{zip_path}.zip"
+
+def zip_output_folder(RUN_OUTPUT_DIR,logger):
+    zip_file = zip_run_output(RUN_OUTPUT_DIR)
+    logger.info(f"\nOutput archived at: {zip_file}")
+    logger.info(f"scp user@host:{zip_file} .")

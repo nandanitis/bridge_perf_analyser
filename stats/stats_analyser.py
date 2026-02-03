@@ -3,6 +3,8 @@ import time
 import pandas as pd
 from plots.plotting_graphs import df_for_plotting_graphs
 from .stats_normaliser import normalize_perf_metric_values
+import re
+import sys
 
 
 # Needs Testing : 
@@ -106,6 +108,50 @@ def tabular_data_of_the_stat(df,selected_stat,logger, sleep_sec=0.35):
     print_grouped_table("READ METRICS (R_*)", r_cols)
     return
 
+def filter_only_unique_name_id(df,stat_identifier,logger):
+    """
+    Handle Name/Id selection logic:
+    - 0 unique  -> log error and exit
+    - 1 unique  -> return it
+    - >1 unique -> prompt user to pick until valid
+    """
+
+    stat_identifier = "10907017373"
+    pattern = rf"^{re.escape(stat_identifier)}"
+    matched_rows = df[df["Name/Id"].astype(str).str.contains(pattern)]
+    unique_vals = matched_rows["Name/Id"].dropna().unique()
+
+    # Case 1: No matches
+    if len(unique_vals) == 0:
+        logger.error("No matching Name/Id values found. Exiting.......")
+        sys.exit(1)
+
+    # Case 2: Exactly one match
+    if len(unique_vals) == 1:
+        logger.info(f"Name/Id found: {unique_vals[0]}")
+        return unique_vals[0]
+
+    # Case 3: Multiple matches → ask user
+    logger.info("Multiple Name/Id values found:")
+    for idx, val in enumerate(unique_vals, start=1):
+        print(f"{idx}. {val}")
+    print("0. Exit")
+
+    while True:
+        choice = input("Select an option (0 to exit): ").strip()
+
+        if choice == "0":
+            logger.info("User chose to exit.")
+            sys.exit(0)
+
+        if choice.isdigit():
+            choice = int(choice)
+            if 1 <= choice <= len(unique_vals):
+                selected = unique_vals[choice - 1]
+                logger.info(f"User selected Name/Id: {selected}")
+                return selected
+
+
 
 def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
    
@@ -115,7 +161,9 @@ def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPU
     logger.debug(f"Column Names For Reference {global_df_stats.columns}")
     
     """ Filter rows where Name/Id column matches the input given by user. Example only for viewId :'10907017373:TestAndDev:6' """
-    analysis_df = global_df_stats[global_df_stats["Name/Id"] == stat_identifier]
+    analysis_df=global_df_stats.copy()
+    stat_identifier=filter_only_unique_name_id(analysis_df,stat_identifier,logger)
+    analysis_df= analysis_df[analysis_df["Name/Id"] == stat_identifier]
     
     """We need standardise all string values to float so that we can plot the graphs later.For example Kibps,Mibps,Bps to Kibps etc..."""
     plotting_df=analysis_df.copy()
@@ -133,7 +181,7 @@ def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPU
     
 
     """Calling the plotting function to plot graphs"""
-    df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
+    #df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
     return
     
 

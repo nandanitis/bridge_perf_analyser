@@ -17,7 +17,7 @@ Tool to parse, analyze, and plot Cohesity Bridge perf stats.
 - [x] Change logging logic to user loging and debug logging . 
 - [x] Create tabular analysis output to text file
 - [x] Add argparse-based CLI -> First half Completed
-- [ ] Improve Name/Id matching with user selection
+- [x] Improve Name/Id matching with user selection
 - [ ] Fix Normalize_perf_metric_columns and make sure edge case are handled properly
 - [ ] Add "External IO" Stats Parser
 - [ ] Add "External IO" stats Analyser

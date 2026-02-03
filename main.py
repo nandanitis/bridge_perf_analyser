@@ -2,87 +2,51 @@
 import pandas as pd
 from pathlib import Path
 from datetime import datetime
-from tqdm import tqdm
+
 
 """ Importing Functions from other Files"""
-from utils.utils import setup_logger,zip_run_output
-from stats.stats_input_handler import get_stat_choice,get_input_for_selected_stat
-from stats.stats_parser import fetch_all_html_files
-from stats.stats_analyser import analyse_global_df
+from utils.utils import setup_logger,create_folder_to_save_output,zip_output_folder
+from cli.file_discovery import discover_html_files
+from cli.input_handler import collect_run_configuration
+from parser.bridge_html_parser import build_final_dataframes
+from analyser.selected_df_analyser.selected_df_analyser import analyse_selected_df
+
 
 # ---- Configs --- Constants ---- #
 BASE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = BASE_DIR.parent   # perf_ssc
 PERF_PATH = PROJECT_ROOT / "bridge-default-html-files"
 
-def create_folder_to_save_output(BASE_DIR):
-
-    # Create top-level output directory
-    OUTPUT_DIR = BASE_DIR / "output"
-    OUTPUT_DIR.mkdir(exist_ok=True)
-
-    # Create timestamped subfolder inside output where we will save the current Outputs
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    RUN_OUTPUT_DIR = OUTPUT_DIR / f"output_{timestamp}"
-    RUN_OUTPUT_DIR.mkdir(exist_ok=True)
-    #logger.info(f"Saving outputs to: {RUN_OUTPUT_DIR}")
-    return RUN_OUTPUT_DIR
-
 
 def main():
-    global_df_stats = None  # Master DataFrame to store rows of all tablse. Example "View Stats Averaged over 60 secs" rows from all perf file 
- 
-    # Create Output directory to save All Output and log files.  
-    RUN_OUTPUT_DIR = create_folder_to_save_output(BASE_DIR)
-
-    # Settup  user logger and debug logger file run.log 
-    logger=setup_logger(RUN_OUTPUT_DIR)
-    """
-    Lets Input from the User on which Stats option they want to use. "NFS stats" or "SMB Stats" or "View "Stats"
-    We also which Name/id{addiontal}. Example view id or client ip to search in nfs stats..etc
-    We will be doing Analysis and Plotting Graph for this below values only.
-    """
-    selected_stat=get_stat_choice(logger)
-    logger.debug(f"User has opted stats analyser for the table : {selected_stat}")
-    stat_identifier = get_input_for_selected_stat(selected_stat, logger)
-    logger.debug(f"User has opted analyser for {selected_stat} for the Name/Id : {stat_identifier}")
-
     
+    """Create Output directory and setup logger for the project"""
+    RUN_OUTPUT_DIR = create_folder_to_save_output(BASE_DIR)
+    logger=setup_logger(RUN_OUTPUT_DIR)
+    
+    """Collect Which stat graph needs to be plotted(selected_stat) and which name/Id to choose from (stat_identifier) """
+    selected_stat,stat_identifier,is_bridge_only=collect_run_configuration(logger)
+   
+    global_acq_df=None  # Dataframe holds  admission control Queue stats only from all html files
+    global_selected_df = None  # DataFrame holds user choosen data tables from all html files
     logger.info(f"Saving outputs to: {RUN_OUTPUT_DIR}")
     logger.info("Perf Analyser Processing Started")
-    html_files = []
-    for html_file in PERF_PATH.rglob("perf-stats-*/*bridge.default.html"):
-        html_files.append(html_file)
-    logger.info(f"Total Bridge Default HTML files discovered: {len(html_files)}")
 
-    """ 
-    Start parsing each html file to create global data frame which contains 
-    all the rows for the stats  which has been eneted by user
-    """
-    for html_file_path in tqdm(html_files, desc="Processing Perf Stats", unit="file"):
-        logger.debug(f"Start Parsing the file: {html_file_path}")
+    """Discover all bridge default html files"""
+    html_files = discover_html_files(PERF_PATH,logger)
 
-        df=fetch_all_html_files(html_file_path,selected_stat, logger)
-        if global_df_stats is None:
-            global_df_stats = df  
-        else:
-            global_df_stats = pd.concat([global_df_stats, df], ignore_index=True)
-        logger.debug(f"Finished Parsing file: {html_file_path}")
-    logger.info("Finished Parsing all files ")   
-
-
-    """
-    Perform stat analyser and Start graph plotting
-    """
-    analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger )
-
-    """ziping the folder so that user can scp it to their machine"""
-    zip_file = zip_run_output(RUN_OUTPUT_DIR)
-    logger.info(f"\nOutput archived at: {zip_file}")
-    logger.info(f"scp user@host:{zip_file} .")
+    """Create Dataframe by looping through all bridge defaul files"""
+    global_acq_df, global_selected_df = build_final_dataframes(html_files,selected_stat, is_bridge_only,logger)
+    
+    """Now that we have the dataframe lets start analysing them and plots the graphs"""
+    #analyse_acq_df(global_acq_df,RUN_OUTPUT_DIR, logger )
+    if  is_bridge_only:
+        """Perform User choosen analyser """
+        analyse_selected_df(global_selected_df, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger )
+        
+    """Ziping the folder so that user can scp it to their machine"""
+    zip_output_folder(RUN_OUTPUT_DIR,logger)
 
 if __name__ == "__main__":
     main()
-
-
 

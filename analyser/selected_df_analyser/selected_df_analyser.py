@@ -1,8 +1,8 @@
 from tabulate import tabulate
 import time
 import pandas as pd
-from plots.plotting_graphs import df_for_plotting_graphs
-from .stats_normaliser import normalize_perf_metric_values
+from analyser.selected_df_analyser.selected_df_plotter import df_for_plotting_graphs
+from .selected_df_normaliser import normalize_perf_metric_values
 import re
 import sys
 
@@ -108,6 +108,7 @@ def tabular_data_of_the_stat(df,selected_stat,logger, sleep_sec=0.35):
     print_grouped_table("READ METRICS (R_*)", r_cols)
     return
 
+
 def filter_only_unique_name_id(df,stat_identifier,logger):
     """
     Handle Name/Id selection logic:
@@ -152,8 +153,7 @@ def filter_only_unique_name_id(df,stat_identifier,logger):
                 return selected
 
 
-
-def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
+def analyse_selected_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
    
     num_rows, num_cols = global_df_stats.shape
     logger.debug("Called analyse_global_df function to Analyse the DF")
@@ -181,7 +181,7 @@ def analyse_global_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPU
     
 
     """Calling the plotting function to plot graphs"""
-    #df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
+    df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
     return
     
 

@@ -18,16 +18,16 @@ def plot_map_and_save_png(df, col,output_dir_images,logger):
     - Y-axis is the selected metric.
     """
     df["time_created"] = pd.to_datetime(df["time_created"])
-    df["perf_start_time"] = (
-        df.groupby("perf_folder_name")["time_created"]
-        .transform("min")
-    )
+    #df["perf_start_time"] = (   df.groupby("perf_folder_name")["time_created"]
+    #    .transform("min")
+    #)
 
     display_name = PERF_METRIC_MAP.get(col, col)
     logger.debug("Plotting Graph for metric {display_name}")
    
     # Rows = Time stamp of the file, columns = bridge_node_ip, values = metric column
-    pivot_df = df.pivot(index="perf_start_time",columns="bridge_node_ip", values=col)
+    #pivot_df = df.pivot(index="perf_start_time",columns="bridge_node_ip", values=col)
+    pivot_df = df.pivot(index="time_created",columns="bridge_node_ip", values=col)
     pivot_df = pivot_df.sort_index()
 
     # Show only HH:MM on X-axis
@@ -64,7 +64,7 @@ def plot_map_and_save_png(df, col,output_dir_images,logger):
 
 
 def df_for_plotting_graphs(df,selected_stat, RUN_OUTPUT_DIR, logger):
-
+    logger.info("\n\n\n")
     logger.info("Started plotting the Graph")
     logger.debug("Called df_for_plotting_graphs function")
 

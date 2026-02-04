@@ -25,5 +25,5 @@ Tool to parse, analyze, and plot Cohesity Bridge perf stats.
 - [ ] Compelte "External IO" stats Analyser
 - [ ] Complete External IO plotting and plot the graphs
 - [ ] Need to  Improve the grep function to handle the files
-- [ ] We need to work on get_input_for_selected_stat function
+- [ ] Fix functions : get_input_for_selected_stat, filter_only_unique_name_id and plot warnings
 - [ ] Need to work on  Normalize_perf_metric_columns and make sure different speeds and different file sizes are handeled

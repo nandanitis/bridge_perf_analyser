@@ -143,7 +143,7 @@ def tabular_data_of_the_stat(analysis_df,selected_stat,logger, sleep_sec=0.35):
     print_grouped_table("READ METRICS (R_*)", r_cols)
     return
 
-
+#Need to check if we want to include 0 during the average
 def print_avg_metrics_per_bridge_node(analysis_df,stat_identifier, logger):
     """
     Prints average read/write metrics per bridge node IP.

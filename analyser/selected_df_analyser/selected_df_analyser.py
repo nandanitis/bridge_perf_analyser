@@ -6,14 +6,14 @@ from .selected_df_normaliser import normalize_perf_metric_values
 import re
 import sys
 
-# Needs Function Improvement
+""" 
 def filter_only_unique_name_id(df,stat_identifier,logger):
-    """
-    Handle Name/Id selection logic:
-    - 0 unique  -> log error and exit
-    - 1 unique  -> return it
-    - >1 unique -> prompt user to pick until valid
-    """
+    
+    #Handle Name/Id selection logic:
+    #- 0 unique  -> log error and exit
+    #- 1 unique  -> return it
+    #- >1 unique -> prompt user to pick until valid
+ "
 
     stat_identifier = "10907017373"
     pattern = rf"^{re.escape(stat_identifier)}"
@@ -49,6 +49,45 @@ def filter_only_unique_name_id(df,stat_identifier,logger):
                 selected = unique_vals[choice - 1]
                 logger.info(f"User selected Name/Id: {selected}")
                 return selected
+
+"""
+
+# Needs Function Improvement   
+def filter_only_unique_name_id(df,stat_identifier,logger):
+    """
+    Handle Name/Id selection logic:
+    - 0 unique  -> log error and exit
+    - 1 unique  -> return it
+    - >1 unique -> prompt user to pick until valid
+    """
+
+    stat_identifier = "10907017373"
+    pattern = rf"^{re.escape(stat_identifier)}"
+    matched_rows = df[df["Name/Id"].astype(str).str.contains(pattern)]
+    unique_vals = matched_rows["Name/Id"].dropna().unique()
+
+    # Case 1: No matches
+    if len(unique_vals) == 0:
+        logger.error("No matching Name/Id values found. Exiting.......")
+        sys.exit(1)
+
+    # Case 2: Exactly one match
+    if len(unique_vals) == 1:
+        logger.info(f"Name/Id found: {unique_vals[0]}")
+        return unique_vals[0]
+
+   # Case 3: Multiple matches → auto-select based on text
+    filtered_vals = [val for val in unique_vals if "TestAndDev" in val or "Backup" in val]
+
+    if len(filtered_vals) == 1:
+        logger.info(f"Multiple matches found, Auto-selected Name/Id: {filtered_vals[0]}")
+        return filtered_vals[0]
+    elif len(filtered_vals) > 1:
+        logger.warning(f"Multiple candidates found containing 'TestAndDev' or 'Backup'. Using first: {filtered_vals[0]}")
+        return filtered_vals[0]
+    else:
+        logger.error("Multiple matches found but none contain 'TestAndDev' or 'Backup'. Cannot decide.")
+        sys.exit(1)
 
 
 def find_inactive_bridge_nodes(df, logger, metric_start_col_name="W_IOPS"):
@@ -143,6 +182,7 @@ def tabular_data_of_the_stat(analysis_df,selected_stat,logger, sleep_sec=0.35):
     print_grouped_table("READ METRICS (R_*)", r_cols)
     return
 
+
 #Need to check if we want to include 0 during the average
 def print_avg_metrics_per_bridge_node(analysis_df,stat_identifier, logger):
     """
@@ -154,16 +194,34 @@ def print_avg_metrics_per_bridge_node(analysis_df,stat_identifier, logger):
     logger.info( f"\n\n{'='*20} Average value of Read/Write Metrics from all {total_perfs} Perf Traces for {stat_identifier}  {'='*20}")
     logger.info("\n")
     logger.info("Below table is average of each Metric across all perf trace. ")
-    logger.info("Lets say you have collected 4 perf traces, where bandwdith across the nodes is 10,10,12,0")
-    logger.info("Then in the below table the value be (10+12+10+0)/4=4.25 Mbps, we are including 0 as well ")
+    logger.info(
+        "For example, if you collected 4 perf traces and the bandwidth values across nodes were "
+        "10, 11, 12, and 0 Mbps,"
+    )
+    logger.info(
+        "then the value shown in the table will be (10 + 11 + 12) / 3 = 11 Mbps. "
+        "Zero values are excluded from the average."
+    )
     logger.info("\n")
-    logger.info("*NOTE: There could be instances where the read/write metric could have been gone to zero mulitple times bringing down the average. ")
-    logger.info("\tCheck the graph's of the required read/write metric to understad the distrubution of values across all perf traces in a better way ")
-    logger.info("\tThats why collecting atleast 10-12 perf traces over 15 minutes interval would give a better average as we will have more data points")
+    logger.info("*NOTE: There may be instances where read/write metrics drop to zero multiple times.")
+    logger.info(
+        "\tRefer to the corresponding graphs for the selected read/write metrics to better "
+        "understand the distribution of values across all perf traces."
+    )
+    logger.info(
+        "\tThis is why collecting at least 10–12 perf traces over a 15-minute interval provides "
+        "a more accurate average, as it gives more data points."
+    )
     logger.info("\n")
+
+
+
+
     if df.empty:
         logger.warning("No data available to compute bridge node averages")
         return
+
+    df = analysis_df.copy()
 
     start_col = "Total/IOs"
     if start_col not in df.columns:
@@ -173,9 +231,18 @@ def print_avg_metrics_per_bridge_node(analysis_df,stat_identifier, logger):
     metric_start_idx = df.columns.get_loc(start_col)
     metric_cols = df.columns[metric_start_idx:]
 
-    avg_df = (df
+    # Ensure metric columns are numeric
+    df[metric_cols] = (
+        df[metric_cols]
+        .apply(pd.to_numeric, errors="coerce")
+        .replace(0, pd.NA)
+    )
+
+    avg_df = (
+        df
         .groupby("bridge_node_ip", as_index=False)[metric_cols]
-        .mean(numeric_only=True)
+        .mean()
+        .fillna(0)
     )
 
     logger.info(
@@ -188,7 +255,8 @@ def print_avg_metrics_per_bridge_node(analysis_df,stat_identifier, logger):
 
 
 def analyse_selected_df(global_df_stats, selected_stat, stat_identifier, RUN_OUTPUT_DIR, logger ):
-   
+    logger.info("\n\n")
+    logger.info(f"Started Analysing for the metric {selected_stat}")
     num_rows, num_cols = global_df_stats.shape
     logger.debug("Called analyse_global_df function to Analyse the DF")
     logger.debug(f"Rows: {num_rows}, Columns: {num_cols}")
@@ -224,6 +292,10 @@ def analyse_selected_df(global_df_stats, selected_stat, stat_identifier, RUN_OUT
 
     """Calling the plotting function to plot graphs"""
     df_for_plotting_graphs(plotting_df,selected_stat, RUN_OUTPUT_DIR, logger)
+
+    logger.info(f"\nCompleted {selected_stat} Analysis and Plotting ")
+    logger.info(f"\n{'='*120}")
+    logger.info(f"\n{'='*120}")
     return
   
 

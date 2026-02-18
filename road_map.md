@@ -11,8 +11,11 @@
 - [x] Zip the output folder, so that user can scp it to local folder
 - [x] Fix latency : Complete function latency_to_ms
 - [x] Complete "External IO" Stats Parser
-- [ ] Compelte "External IO" stats Analyser
-- [ ] Complete External IO plotting and plot the graphs
+- [x] Compelte "External IO" stats Analyser
+- [x] Complete External IO plotting and plot the graphs
 - [ ] Need to  Improve the grep function to handle the files
-- [ ] Fix functions : get_input_for_selected_stat, filter_only_unique_name_id and plot warnings
+- [x] Fix functions : get_input_for_selected_stat, filter_only_unique_name_id and plot warnings
 - [ ] Need to work on  Normalize_perf_metric_columns and make sure different speeds and different file sizes are handeled
+- [ ] Complete "QoS Queue Principal details" Stats Parser
+- [ ] Compelte "QoS Queue Principal details" stats Analyser
+- [ ] Complete "QoS Queue Principal details plotting and plot the graphs
